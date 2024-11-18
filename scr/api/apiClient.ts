@@ -1,7 +1,7 @@
 import axios, {AxiosInstance, AxiosResponse} from 'axios';
 
-interface ApiPayload<T> {
-  payload: T;
+export interface ApiPayload<K> {
+  payload?: K;
 }
 
 interface ApiResponse<T> {
@@ -43,13 +43,13 @@ class ApiClient {
     } as Error);
   };
 
-  postApiService = async <T, K>(
+  postApiService = async <K, T>(
     api: string,
-    reqParam: ApiPayload<T>,
-  ): Promise<K> => {
+    reqParam: ApiPayload<K>,
+  ): Promise<T> => {
     try {
       // Make the POST request with the payload
-      const response = await this.axiosInstance.post<K>(api, reqParam, {
+      const response = await this.axiosInstance.post<T>(api, reqParam, {
         headers: {...this.axiosHeaders, ...this.requestHeader()},
       });
 

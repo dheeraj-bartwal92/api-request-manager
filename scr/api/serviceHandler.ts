@@ -1,4 +1,4 @@
-import {API} from './apiClient';
+import {API, ApiPayload} from './apiClient';
 
 export enum API_METHOD {
   POST = 'POST',
@@ -6,7 +6,7 @@ export enum API_METHOD {
 }
 
 // `T` is the expected response type, `K` is the type for request payload (only used for POST)
-export const serviceHandler = async <T, K>(
+export const serviceHandler = async <K, T>(
   method: API_METHOD,
   url: string,
   payload?: K,
@@ -18,7 +18,10 @@ export const serviceHandler = async <T, K>(
         return getResponse;
 
       case API_METHOD.POST:
-        const postResponse = await API.postApiService<K, T>(url, payload);
+        const postResponse = await API.postApiService<K, T>(
+          url,
+          payload || ({} as ApiPayload<K>),
+        );
         return postResponse;
 
       default:
