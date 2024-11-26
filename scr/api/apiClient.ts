@@ -15,7 +15,7 @@ class ApiClient {
   };
   constructor() {
     this.axiosInstance = axios.create({
-      baseURL: '',
+      baseURL: 'https://jsonplaceholder.typicode.com',
       headers: this.axiosHeaders,
       timeout: 10000,
       timeoutErrorMessage: 'Slow Network',
